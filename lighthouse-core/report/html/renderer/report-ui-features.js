@@ -27,6 +27,10 @@ class ReportUIFeatures {
     this._copyAttempt = false;
     /** @type {!Element} **/
     this.exportButton; // eslint-disable-line no-unused-expressions
+    /** @type {number} */
+    this.latestKnownScrollY = 0;
+    /** @type {boolean} */
+    this.isAnimatingHeader = false;
 
     this.onMediaQueryChange = this.onMediaQueryChange.bind(this);
     this.onCopy = this.onCopy.bind(this);
@@ -34,6 +38,7 @@ class ReportUIFeatures {
     this.onExport = this.onExport.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.printShortCutDetect = this.printShortCutDetect.bind(this);
+    this.onScroll = this.onScroll.bind(this);
   }
 
   /**
@@ -46,6 +51,7 @@ class ReportUIFeatures {
     this._setupMediaQueryListeners();
     this._setupExportButton();
     this._setUpCollapseDetailsAfterPrinting();
+    this._setupHeaderAnimation();
     this._resetUIState();
     this._document.addEventListener('keydown', this.printShortCutDetect);
     this._document.addEventListener('copy', this.onCopy);
@@ -84,6 +90,15 @@ class ReportUIFeatures {
 
     const dropdown = this._dom.find('.lh-export__dropdown', this._document);
     dropdown.addEventListener('click', this.onExport);
+  }
+
+  _setupHeaderAnimation() {
+    this.headerBackground = this._dom.find('.lh-header-bg', this._document);
+    this.lighthouseIcon = this._dom.find('.lh-lighthouse', this._document);
+    this.scoresWrapper = this._dom.find('.lh-scores-wrapper', this._document);
+    this.scoresShadowWrapper = this._dom.find('.lh-scores-wrapper__shadow', this._document);
+
+    this._document.addEventListener('scroll', this.onScroll, {passive: true});
   }
 
   /**
@@ -133,6 +148,27 @@ class ReportUIFeatures {
       this._copyAttempt = false;
       this._fireEventOn('lh-log', this._document, {cmd: 'log', msg: e.message});
     }
+  }
+
+  onScroll() {
+    this.latestKnownScrollY = this._dom.window().scrollY;
+
+    if (!this.isAnimatingHeader) {
+      this._dom.window().requestAnimationFrame(this.animateHeader.bind(this));
+    }
+    this.isAnimatingHeader = true;
+  }
+
+  animateHeader() {
+    const percentage = Math.min(1, this.latestKnownScrollY / 172);
+    const sizeAdjustment = (202 - 50) * percentage;
+    this.headerBackground.style.transform = `translate3d(0, ${sizeAdjustment * -1}px, 0)`;
+    this.lighthouseIcon.style.transform = `translate3d(calc(var(--report-content-width) / 2), calc(-100% - ${(202- 50) * percentage}px), 0) scale(${1 - percentage})`;
+    this.lighthouseIcon.style.opacity = Math.max(0, 1 - percentage);
+    this.scoresWrapper.style.transform = `translate3d(0, ${(202 - 80) * percentage * -1}px, 0)`;
+    this.scoresShadowWrapper.style.opacity = 1 - percentage;
+
+    this.isAnimatingHeader = false;
   }
 
   closeExportDropdown() {

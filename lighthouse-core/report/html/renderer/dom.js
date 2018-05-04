@@ -153,6 +153,13 @@ class DOM {
   }
 
   /**
+   * @return {!Window}
+   */
+  window() {
+    return this._document.defaultView || this._document.parentWindow;
+  }
+
+  /**
    * Guaranteed context.querySelector. Always returns an element or throws if
    * nothing matches query.
    * @param {string} query

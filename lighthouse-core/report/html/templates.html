@@ -62,17 +62,22 @@
     }
     .lh-header-bg {
       background-color: var(--header-bg-color);
+      height: var(--report-header-height);
+      left: 0;
       position: absolute;
       top: 0;
-      left: 0;
+      transform: translate3d(0, 0, 0);
       width: 100%;
-      height: var(--report-header-height);
+      will-change: transform;
     }
     .lh-lighthouse {
       position: absolute;
       top: var(--report-header-height);
       right: 50%;
       transform: translate3d(calc(var(--report-content-width) / 2), -100%, 0);
+      opacity: 1;
+      transform-origin: bottom right;
+      will-change: transform;
     }
     .lh-header {
       width: 100%;
@@ -101,9 +106,18 @@
       margin-top: -30px;
       transform: translateZ(1px);
     }
+    .lh-scores-wrapper__shadow{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);
+      opacity: 1;
+      border-radius: 8px;
+    }
     .lh-scores-container {
       background: #fff;
-      box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       width: 100%;
       padding: var(--section-indent) calc(var(--section-indent) / 2) calc(var(--section-indent) / 2);
@@ -250,7 +264,7 @@
     }
   </style>
   <div class="lh-header-bg"></div>
-  <svg class="lh-lighthouse" width="217" height="189" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="a" d="M0 0h284v202H0z"/><linearGradient x1="0%" y1="50%" x2="93.17%" y2="50%" id="c"><stop stop-color="#F1F3F4" offset="0%"/><stop stop-color="#FFF" offset="100%"/></linearGradient></defs><g transform="translate(-56 -13)" fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><g mask="url(#b)"><g transform="translate(56 70)"><path fill="#EC5548" d="M95 31h24v2H95z"/><path fill="#FBC21B" d="M98 33h18v11H98z"/><path fill="#EC5548" d="M95 43h24v7H95z"/><path fill="#FFF" d="M97.63 50h19.74L120 97H95z"/><path d="M107 22a10 10 0 0 1 10 10v1H97v-1a10 10 0 0 1 10-10zM96.77 66.23l20.97-10.7.63 11.87-22.28 11.87zM95 94.8L119.1 82l.9 14H95z" fill="#EC5548"/><path d="M0 132a177.07 177.07 0 0 1 108.5-37c40.78 0 78.38 13.78 108.5 37H0z" fill="#E8EAED"/><rect fill="#FEF0C8" x="98" y="33" width="10" height="10" rx="5"/><path fill="url(#c)" d="M7 0l91 33.18v10.05L7 77z"/></g></g><g mask="url(#b)" fill="#FFF"><g transform="translate(96 86)"><circle cx="87.5" cy=".5" r="1"/><circle cx="86" cy="20" r="1"/><circle cx="96" cy="40" r="1"/><circle cx="27" cy="68" r="1"/><circle cx="15" cy="44" r="1"/><circle cx="127" cy="64" r="1"/><circle cx="109.5" cy="44.5" r="1"/><circle cx="14.5" cy="54.5" r="1"/><circle cx="8.5" cy="57.5" r="1"/><circle cx=".5" cy="78.5" r="1"/><circle cx="27.5" cy="39.5" r="1"/><circle cx="134.5" cy="41.5" r="1"/><circle cx="97.5" cy="65.5" r="1"/><circle cx="161.5" cy="69.5" r="1"/></g></g><g mask="url(#b)" fill="#FFF"><path d="M101.2 34H70.21A7.42 7.42 0 0 1 69 29.91a7.31 7.31 0 0 1 8.54-7.26v-.11c0-5.27 4.2-9.54 9.39-9.54a9.44 9.44 0 0 1 9.24 7.83 7.24 7.24 0 0 1 7.83 7.35 7.4 7.4 0 0 1-2.8 5.82zM193.53 54h-17.9a4.3 4.3 0 0 1-.63-2.25 4.2 4.2 0 0 1 4.88-4.18v-.07c0-3.04 2.4-5.5 5.36-5.5a5.4 5.4 0 0 1 5.28 4.51l.33-.01a4.2 4.2 0 0 1 4.15 4.25c0 1.3-.57 2.47-1.47 3.25zM219.01 116h-24.16a5.1 5.1 0 0 1-.85-2.81c0-2.94 2.5-5.31 5.6-5.31.33 0 .67.02.99.08v-.08c0-3.8 3.24-6.88 7.24-6.88a7.15 7.15 0 0 1 7.13 5.64l.44-.02c3.1 0 5.6 2.38 5.6 5.32a5.2 5.2 0 0 1-1.99 4.06z"/></g></g></svg>
+  <div class="lh-lighthouse"><svg width="217" height="189" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="a" d="M0 0h284v202H0z"/><linearGradient x1="0%" y1="50%" x2="93.17%" y2="50%" id="c"><stop stop-color="#F1F3F4" offset="0%"/><stop stop-color="#FFF" offset="100%"/></linearGradient></defs><g transform="translate(-56 -13)" fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><g mask="url(#b)"><g transform="translate(56 70)"><path fill="#EC5548" d="M95 31h24v2H95z"/><path fill="#FBC21B" d="M98 33h18v11H98z"/><path fill="#EC5548" d="M95 43h24v7H95z"/><path fill="#FFF" d="M97.63 50h19.74L120 97H95z"/><path d="M107 22a10 10 0 0 1 10 10v1H97v-1a10 10 0 0 1 10-10zM96.77 66.23l20.97-10.7.63 11.87-22.28 11.87zM95 94.8L119.1 82l.9 14H95z" fill="#EC5548"/><path d="M0 132a177.07 177.07 0 0 1 108.5-37c40.78 0 78.38 13.78 108.5 37H0z" fill="#E8EAED"/><rect fill="#FEF0C8" x="98" y="33" width="10" height="10" rx="5"/><path fill="url(#c)" d="M7 0l91 33.18v10.05L7 77z"/></g></g><g mask="url(#b)" fill="#FFF"><g transform="translate(96 86)"><circle cx="87.5" cy=".5" r="1"/><circle cx="86" cy="20" r="1"/><circle cx="96" cy="40" r="1"/><circle cx="27" cy="68" r="1"/><circle cx="15" cy="44" r="1"/><circle cx="127" cy="64" r="1"/><circle cx="109.5" cy="44.5" r="1"/><circle cx="14.5" cy="54.5" r="1"/><circle cx="8.5" cy="57.5" r="1"/><circle cx=".5" cy="78.5" r="1"/><circle cx="27.5" cy="39.5" r="1"/><circle cx="134.5" cy="41.5" r="1"/><circle cx="97.5" cy="65.5" r="1"/><circle cx="161.5" cy="69.5" r="1"/></g></g><g mask="url(#b)" fill="#FFF"><path d="M101.2 34H70.21A7.42 7.42 0 0 1 69 29.91a7.31 7.31 0 0 1 8.54-7.26v-.11c0-5.27 4.2-9.54 9.39-9.54a9.44 9.44 0 0 1 9.24 7.83 7.24 7.24 0 0 1 7.83 7.35 7.4 7.4 0 0 1-2.8 5.82zM193.53 54h-17.9a4.3 4.3 0 0 1-.63-2.25 4.2 4.2 0 0 1 4.88-4.18v-.07c0-3.04 2.4-5.5 5.36-5.5a5.4 5.4 0 0 1 5.28 4.51l.33-.01a4.2 4.2 0 0 1 4.15 4.25c0 1.3-.57 2.47-1.47 3.25zM219.01 116h-24.16a5.1 5.1 0 0 1-.85-2.81c0-2.94 2.5-5.31 5.6-5.31.33 0 .67.02.99.08v-.08c0-3.8 3.24-6.88 7.24-6.88a7.15 7.15 0 0 1 7.13 5.64l.44-.02c3.1 0 5.6 2.38 5.6 5.32a5.2 5.2 0 0 1-1.99 4.06z"/></g></g></svg></div>
 
   <div class="lh-header">
     <div class="lh-container">
@@ -286,7 +300,9 @@
 
   <div class="lh-scores-wrapper">
     <div class="lh-container">
-      <div class="lh-scores-container"></div>
+      <div class="lh-scores-container">
+        <div class="lh-scores-wrapper__shadow"></div>
+      </div>
     </div>
   </div>
 
