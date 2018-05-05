@@ -964,6 +964,50 @@ summary.lh-passed-audits-summary {
   object-fit: contain;
 }
 
+/* Chevron
+   https://codepen.io/paulirish/pen/LmzEmK
+ */
+
+.chevron {
+  width: 12px;
+  height: 12px;
+}
+
+.chevron__lines {
+  transition: transform 0.4s;
+  transform: translateY(13px);
+}
+.chevron__line {
+ stroke: hsl(216, 5%, 39%);
+ transform-origin: 50px 50px;
+ stroke-width: 10;
+ stroke-linecap: round;
+ transition: transform 300ms, stroke 300ms;
+ transform: rotate(42deg);
+}
+
+.lh-audit-group > .lh-audit-group__summary > .chevron .chevron__line-right,
+.lh-audit-group[open] > .lh-audit-group__summary > .chevron .chevron__line-left,
+.lh-expandable-details > .lh-expandable-details__summary > .chevron .chevron__line-right,
+.lh-expandable-details[open] > .lh-expandable-details__summary > .chevron .chevron__line-left,
+.lh-expandable-details > .lh-expandable-details__summary > div > .chevron .chevron__line-right,
+.lh-expandable-details[open] > .lh-expandable-details__summary > div > .chevron .chevron__line-left  {
+ transform: rotate(-42deg);
+}
+
+.lh-audit-group[open] > .lh-audit-group__summary > .chevron .chevron__line-right,
+.lh-expandable-details[open] > .lh-expandable-details__summary > .chevron .chevron__line-right,
+.lh-expandable-details[open] > .lh-expandable-details__summary > div > .chevron .chevron__line-right {
+  transform: rotate(42deg);
+}
+
+.lh-audit-group[open] > .lh-audit-group__summary > .chevron .chevron__lines,
+.lh-expandable-details[open] > .lh-expandable-details__summary > .chevron .chevron__lines,
+.lh-expandable-details[open] > .lh-expandable-details__summary > div > .chevron .chevron__lines {
+ transform: translateY(-13px);
+}
+
+
 
 /* Tooltip */
 .tooltip-boundary {
