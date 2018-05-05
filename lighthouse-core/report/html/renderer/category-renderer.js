@@ -303,8 +303,6 @@ class CategoryRenderer {
     auditsUngrouped.notApplicable.forEach((/** @type {!ReportRenderer.AuditJSON} */ audit, i) =>
       notApplicableElements.push(this.renderAudit(audit, i)));
 
-    let hasFailedGroups = false;
-
     Object.keys(auditsGroupedByGroup).forEach(groupId => {
       const group = groupDefinitions[groupId];
       const groups = auditsGroupedByGroup[groupId];
@@ -314,8 +312,6 @@ class CategoryRenderer {
         groups.failed.forEach((item, i) => auditGroupElem.appendChild(this.renderAudit(item, i)));
         auditGroupElem.open = true;
         failedElements.push(auditGroupElem);
-
-        hasFailedGroups = true;
       }
 
       if (groups.passed.length) {
@@ -333,7 +329,6 @@ class CategoryRenderer {
     });
 
     if (failedElements.length) {
-      // if failed audits are grouped skip the 'X Failed Audits' header
       failedElements.forEach(elem => element.appendChild(elem));
     }
 
